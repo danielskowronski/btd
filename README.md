@@ -18,3 +18,5 @@ It's based on aruino style packed ESP8266, a microcontroller with WiFi stack and
 
 You may be interested in [Altium CircuitMaker project page](https://workspace.circuitmaker.com/Projects/Details/Daniel-Skowroski/btd).
 
+## Demo
+![](hw/btd.png?raw=true)

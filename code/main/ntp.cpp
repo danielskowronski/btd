@@ -1,3 +1,5 @@
+// based ojn example from TimeLib.h -> https://github.com/PaulStoffregen/Time/blob/master/examples/TimeNTP_ESP8266WiFi/TimeNTP_ESP8266WiFi.ino
+
 #include <ESP8266HTTPClient.h>
 #include <BearSSLHelpers.h>
 #include <CertStoreBearSSL.h>
@@ -28,7 +30,7 @@
 #include "global.h"
 #include "display.h"
 #include "ntp.h"
-
+#include "ir.h"
 
 int ntpLimiter=0;
 bool timeInitiated=false;
@@ -76,7 +78,10 @@ time_t getNtpTime(){
   displayText("NTP failed!                  ");
   Serial.println("No NTP Response :-(");
   ntpLimiter++; 
-  if (ntpLimiter<=NTP_CONSEQ_REQ_LIMIT) getNtpTime();
+  if (ntpLimiter<=NTP_CONSEQ_REQ_LIMIT) {
+    delay(ntpLimiter*200);
+    getNtpTime();
+  }
   return 0; // return 0 if unable to get the time
 }
 

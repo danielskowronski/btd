@@ -28,6 +28,7 @@
 #include "global.h"
 #include "display.h"
 #include "ntp.h"
+#include "ir.h"
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
@@ -81,4 +82,9 @@ void displayTime(){
   display.fillRect(59,10,6,6,WHITE);
   display.fillRect(59,22,6,6,WHITE);
   display.display();
+}
+
+
+void displayAbout(){
+  displayText("BTD by dskowronski",true);
 }

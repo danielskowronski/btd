@@ -9,4 +9,7 @@ void clearDisplay();
 void displayText(String txt, bool entireScreen=false);
 void displayTime();
 
+
+void displayAbout();
+
 #endif

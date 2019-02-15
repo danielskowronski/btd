@@ -11,4 +11,7 @@
 #define localPort 9999
 #define NTP_CONSEQ_REQ_LIMIT 32
 
+//IO Pinout
+#define IR_PIN 14
+
 #endif
