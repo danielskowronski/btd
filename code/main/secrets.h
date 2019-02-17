@@ -4,5 +4,6 @@
 //WiFi
 #define ssid "="
 #define password ""
+#define luftdaten_json_path "htpp://..."
 
 #endif

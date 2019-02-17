@@ -29,6 +29,7 @@
 #include "display.h"
 #include "ntp.h"
 #include "ir.h"
+#include "data_get.h"
 
 void startWiFi(){
   displayText("WiFi init",true);
@@ -60,7 +61,7 @@ void setup() {
 }
 
 
-
+int loopSkipCounterDataGet=999999; int loopSkipCounterDataGetLimit=5*60; //45s is time set in luftdaten sensor, setting 1m here
 void loop() {
   if (analogRead(0)<300) setBrightness(0x00); else setBrightness(0xff);
   
@@ -73,7 +74,15 @@ void loop() {
 
   if (currentScene==clockScene) displayTime();
   if (currentScene==aboutScene) displayAbout();
-  
+
+  if (loopSkipCounterDataGet>loopSkipCounterDataGetLimit){
+    getLuftdatenData();
+    
+    loopSkipCounterDataGet=0;
+  }
+  else{
+    loopSkipCounterDataGet++;
+  }
   
   delay(200);
 }
