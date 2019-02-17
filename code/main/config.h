@@ -8,8 +8,8 @@
 //NTP
 #define ntpServerName "0.pool.ntp.org"
 #define timeZone 1
-#define localPort 9999
-#define NTP_CONSEQ_REQ_LIMIT 32
+#define UDP_LOCAL_PORT 9999
+#define NTP_CONSEQ_REQ_LIMIT 64
 
 //IO Pinout
 #define IR_PIN 14

@@ -19,12 +19,8 @@
 #include <WiFiServerSecureAxTLS.h>
 #include <WiFiServerSecureBearSSL.h>
 #include <WiFiUdp.h>
-#include <SPI.h>
-#include <Wire.h>
 #include <stdio.h>
 #include <TimeLib.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 #include "config.h"
 #include "secrets.h"
 #include "global.h"
@@ -38,7 +34,7 @@ WiFiUDP Udp;
 byte packetBuffer[NTP_PACKET_SIZE];
 
 void startTime(){
-  Udp.begin(localPort);
+  Udp.begin(UDP_LOCAL_PORT);
   setSyncProvider(getNtpTime);
   setSyncInterval(3600);
 }
@@ -79,7 +75,7 @@ time_t getNtpTime(){
   Serial.println("No NTP Response :-(");
   ntpLimiter++; 
   if (ntpLimiter<=NTP_CONSEQ_REQ_LIMIT) {
-    delay(ntpLimiter*200);
+    delay(ntpLimiter*500);
     getNtpTime();
   }
   return 0; // return 0 if unable to get the time

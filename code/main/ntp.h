@@ -1,3 +1,5 @@
+#include <WiFiUdp.h>
+
 #ifndef ntp_h
 #define ntp_h
 
