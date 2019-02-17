@@ -9,6 +9,7 @@
 #include "display.h"
 #include "ntp.h"
 #include "ir.h"
+#include "data_get.h"
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
@@ -64,6 +65,15 @@ void displayTime(){
   display.display();
 }
 
+void displayExtSensors(){  
+  display.setCursor(0,0);
+  display.setTextSize(2);display.print("PM10 ");
+  display.setTextSize(3);display.print(String(int(extPM10)));
+  
+  display.setCursor(0,32); 
+  display.print(String(int(extTemp))+char(0xf7)+"C");
+  display.display();
+}
 
 void displayAbout(){
   displayText("BTD by dskowronski",true);

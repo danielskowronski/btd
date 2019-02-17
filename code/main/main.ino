@@ -41,9 +41,9 @@ void startWiFi(){
   displayText("WiFi OK",true);
 }
 
-#define sceneModulo 2
+#define sceneModulo 3
 enum displayScene{
-  clockScene=0,aboutScene=1
+  clockScene=0,extSensorScene=1,aboutScene=2
 } currentScene;
 
 void setup() {
@@ -72,8 +72,9 @@ void loop() {
   if (nextCommand!=noop) clearDisplay();
   nextCommand=noop;
 
-  if (currentScene==clockScene) displayTime();
-  if (currentScene==aboutScene) displayAbout();
+  if (currentScene==clockScene)     displayTime();
+  if (currentScene==extSensorScene) displayExtSensors();
+  if (currentScene==aboutScene)     displayAbout();
 
   if (loopSkipCounterDataGet>loopSkipCounterDataGetLimit){
     getLuftdatenData();
