@@ -68,6 +68,7 @@ void displayTime(){
 void displayExtSensors(){  
   String pm10 = String(int(extPM10));
   if (int(extPM10)<100) pm10=" "+pm10;
+  if (int(extPM10)>999) pm10="!!!";
 
   int curPosX=0;
   display.setCursor(curPosX, 8); display.setTextSize(2);display.print("PM10"); curPosX+=2*6*4;
@@ -76,7 +77,7 @@ void displayExtSensors(){
   display.setCursor(curPosX,16); display.setTextSize(1);display.print("/m3"); 
   
   display.setCursor(0,32); display.setTextSize(3);
-  display.print(String(int(extTemp))+char(0xf7)+"C");
+  display.print(String(int(extTemp))+char(0xf7)+"C  ");
   display.display();
 }
 
