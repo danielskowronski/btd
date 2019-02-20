@@ -30,6 +30,8 @@
 #include "ntp.h"
 #include "ir.h"
 #include "data_get.h"
+#include "thm.h"
+#include "light.h"
 
 void startWiFi(){
   displayText("WiFi init",true);
@@ -41,15 +43,16 @@ void startWiFi(){
   displayText("WiFi OK",true);
 }
 
-#define sceneModulo 3
+#define sceneModulo 4
 enum displayScene{
-  clockScene=0,extSensorScene=1,aboutScene=2
+  clockScene=0,extSensorScene=1,intSensorScene=2,aboutScene=3
 } currentScene;
 
 void setup() {
   timeInitiated=false;
-  
+  int val=analogRead(ANALOG_PIN);
   Serial.begin(115200);
+  startThm();
   startRemoteControl();
   startDisplay();
   startWiFi();  
@@ -61,9 +64,10 @@ void setup() {
 }
 
 
-int loopSkipCounterDataGet=999999; int loopSkipCounterDataGetLimit=5*60; //45s is time set in luftdaten sensor, setting 1m here
+int loopSkipCounterDataGet=999999; 
+
 void loop() {
-  if (analogRead(0)<300) setBrightness(0x00); else setBrightness(0xff);
+  if (shallScreenBeDarker()) setScreenDark(); else setScreenBright();
   
   parseRemoteControl();
        if (nextCommand==prev) currentScene=(displayScene)(((int)currentScene-1)%sceneModulo);
@@ -74,9 +78,10 @@ void loop() {
 
   if (currentScene==clockScene)     displayTime();
   if (currentScene==extSensorScene) displayExtSensors();
+  if (currentScene==intSensorScene) displayIntSensors();
   if (currentScene==aboutScene)     displayAbout();
 
-  if (loopSkipCounterDataGet>loopSkipCounterDataGetLimit){
+  if (loopSkipCounterDataGet>TIME_BETWEEN_DATA_PUSHPULL){
     getLuftdatenData();
     
     loopSkipCounterDataGet=0;
