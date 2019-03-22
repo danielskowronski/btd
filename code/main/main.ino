@@ -1,21 +1,4 @@
-#include <ESP8266HTTPClient.h>
-#include <BearSSLHelpers.h>
-#include <CertStoreBearSSL.h>
 #include <ESP8266WiFi.h>
-#include <ESP8266WiFiAP.h>
-#include <ESP8266WiFiGeneric.h>
-#include <ESP8266WiFiMulti.h>
-#include <ESP8266WiFiScan.h>
-#include <ESP8266WiFiSTA.h>
-#include <ESP8266WiFiType.h>
-#include <WiFiClient.h>
-#include <WiFiClientSecure.h>
-#include <WiFiClientSecureAxTLS.h>
-#include <WiFiClientSecureBearSSL.h>
-#include <WiFiServer.h>
-#include <WiFiServerSecure.h>
-#include <WiFiServerSecureAxTLS.h>
-#include <WiFiServerSecureBearSSL.h>
 #include <WiFiUdp.h>
 #include <SPI.h>
 #include <Wire.h>
@@ -35,7 +18,7 @@
 
 void startWiFi(){
   displayText("WiFi init",true);
-  WiFi.begin(ssid, password);
+  WiFi.begin(wifi_ssid, wifi_password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     displayText("WiFi connect...",true);

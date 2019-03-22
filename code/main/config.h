@@ -14,7 +14,7 @@
 //IO Pinout
 #define ANALOG_PIN 0
 #define IR_PIN 14
-#define THM_PIN 16
+#define THM_PIN 2
 
 //Other
 #define LIGHT_THRESHOLD 300

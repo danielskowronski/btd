@@ -1,5 +1,5 @@
 #include <esp8266wifi.h>
-#include <esp8266httpclient.h>
+#include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
 #include "config.h"
 #include "secrets.h"

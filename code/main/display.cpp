@@ -108,9 +108,9 @@ void displayIntSensors(){
   display.setCursor(0, 8); display.setTextSize(2);display.print("LUX "); curPosX+=2*6*4;
   display.setCursor(curPosX, 0); display.setTextSize(3);display.print(lightStr); 
 
+  curPosX=0;
   display.setCursor(0, 32+8); display.setTextSize(2);display.print("BED "); curPosX+=2*6*4;
   display.setCursor(curPosX, 32); display.setTextSize(3);display.print(String(int(getThm()))+char(0xf7)+"C  ");
-  Serial.println(getThm());
   display.display();
 }
 
