@@ -14,7 +14,7 @@
 //IO Pinout
 #define ANALOG_PIN 0
 #define IR_PIN 14
-#define THM_PIN 2
+#define THM_PIN 2 //only one for OneWire on this board? definitely 16 is broken
 
 //Other
 #define LIGHT_THRESHOLD 300

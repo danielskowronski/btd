@@ -13,8 +13,10 @@
 #include "ntp.h"
 #include "ir.h"
 #include "data_get.h"
+#include "data_post.h"
 #include "thm.h"
 #include "light.h"
+#include "data_post.h"
 
 void startWiFi(){
   displayText("WiFi init",true);
@@ -66,6 +68,7 @@ void loop() {
 
   if (loopSkipCounterDataGet>TIME_BETWEEN_DATA_PUSHPULL){
     getLuftdatenData();
+    postBedsideTableData();
     
     loopSkipCounterDataGet=0;
   }

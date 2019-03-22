@@ -5,9 +5,9 @@
 #include "secrets.h"
 #include "display.h"
 
-HTTPClient http;
 StaticJsonDocument<1024> doc;
 float extTemp, extHumidity, extPressure, extPM10, extPM25;
+HTTPClient http;
 
 void getLuftdatenData(){
   http.begin(luftdaten_json_path);

@@ -7,11 +7,15 @@ Aim of the project is to create small device with display that is place on bedsi
 * limited brightness/contrast control of OLED screen using photoresistor
   * SSD1306 has very limited output voltage control so only 2 stages: max and min with threshold on ambient light perceived by myself as dark
 * time display with NTP source
-* IR control of what's displayed on screen (TBD) 
-* local temperature reading (TBD) and upload to InfluxDB (TBD)
-* presnetation of data from Lufdaten Air Monitor (TBD)
+* local temperature reading and upload to InfluxDB (with auth())
+* presnetation of data from Lufdaten Air Monitor
   * [blog post about this data source](https://blog.dsinf.net/2019/01/budowa-stacji-pogody-z-czujnikiem-smogu-i-prezentacja-danych/)
   * input data format defined in [luftdaten_json.md](luftdaten_json.md)
+* IR control of what's displayed on screen; scenes:
+  * basic clock with big font
+  * air pollution and temperature from Lufdaten
+  * local temperature and light measurement
+  * system info/about
 
 ## Hardware
 
