@@ -3,6 +3,7 @@
 #include <TimeLib.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <Timezone.h> 
 #include "config.h"
 #include "secrets.h"
 #include "global.h"
@@ -49,9 +50,13 @@ void displayText(String txt, bool entireScreen){
   display.print(txt);
   display.display();
 }
-void displayTime(){  
-  int h=hour();   String hh=String(h); if (h<10) hh=" "+hh;
-  int m=minute(); String mm=String(m); if (m<10) mm="0"+mm;
+void displayTime(){
+  time_t local, utc;
+  utc = now();
+  local = userTZ.toLocal(utc);
+
+  int h=hour(local);   String hh=String(h); if (h<10) hh=" "+hh;
+  int m=minute(local); String mm=String(m); if (m<10) mm="0"+mm;
   
   display.setCursor(0,0);
   display.setTextColor(WHITE,BLACK);

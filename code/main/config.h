@@ -1,15 +1,20 @@
 #ifndef config_h
 #define config_h
 
+#include <Timezone.h> 
+
 //OLED
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
 //NTP
 #define ntpServerName "0.pool.ntp.org"
-#define timeZone 1
+//#define timeZone 1
 #define UDP_LOCAL_PORT 9999
 #define NTP_CONSEQ_REQ_LIMIT 64
+static TimeChangeRule summerRule = {"CEST", Last, Sun, Mar, 2, +120};
+static TimeChangeRule winterRule = { "CET", Last, Sun, Oct, 3, +60};
+static Timezone userTZ(winterRule, summerRule);
 
 //IO Pinout
 #define ANALOG_PIN 0
