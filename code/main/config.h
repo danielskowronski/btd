@@ -22,7 +22,7 @@ static Timezone userTZ(winterRule, summerRule);
 
 //Other
 #define LIGHT_THRESHOLD 300
-#define TIME_BETWEEN_DATA_PUSHPULL 300
-#define DEBUG_LEVEL -1
+#define TIME_BETWEEN_DATA_PUSHPULL 60
+#define DEBUG_LEVEL 0 //-1 is off, 0 is default, 1 is verbose (reading vals)
 
 #endif

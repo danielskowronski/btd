@@ -51,7 +51,7 @@ void setup() {
 }
 
 
-int loopSkipCounterDataGet=999999; 
+long long lastDataPushPull=-9223372036854775807; 
 
 void loop() {
   if (shallScreenBeDarker()) setScreenDark(); else setScreenBright();
@@ -68,15 +68,12 @@ void loop() {
   if (currentScene==intSensorScene) displayIntSensors();
   if (currentScene==aboutScene)     displayAbout();
 
-  if (loopSkipCounterDataGet>TIME_BETWEEN_DATA_PUSHPULL){
+  if (now()>=TIME_BETWEEN_DATA_PUSHPULL+lastDataPushPull){
     getLuftdatenData();
     postBedsideTableData();
     
-    loopSkipCounterDataGet=0;
-  }
-  else{
-    loopSkipCounterDataGet++;
+    lastDataPushPull=now();
   }
   
-  delay(200);
+  delay(100);
 }

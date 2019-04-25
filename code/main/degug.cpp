@@ -1,8 +1,21 @@
+#include <TimeLib.h>
+#include <stdio.h>
 #include "config.h"
 #include "debug.h"
 
-void debugLog(String unit, String msg, int levelNeeded){
+void debugLog(String unit, String msg, int levelNeeded, bool preNTP){
 	if (levelNeeded>DEBUG_LEVEL) return;
-	Serial.println(unit+": "+msg);
-	//TODO: something more ambitious
+	
+	char datetime[18]={0};
+	if (!preNTP){
+		/* preNTP note:
+		   if we set getTimePtr to getNtpTime in TimeLib then 
+		   getNtpTime may be called when this func is run
+		   (especially on first time retrieval)
+		   which leads to endless recursion
+		*/
+		sprintf(datetime,"[%02d/%02d %02d:%02d:%02d] ",month(),day(),hour(),minute(),second());
+	}
+
+	Serial.println(String(datetime)+unit+": "+msg);
 }

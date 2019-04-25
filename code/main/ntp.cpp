@@ -30,7 +30,7 @@ time_t getNtpTime(){
   displayText("NTP requested         ");
   // get a random server from the pool
   WiFi.hostByName(ntpServerName, ntpServerIP);
-  debugLog("getNtpTime()",String(ntpServerName));
+  debugLog("getNtpTime()",String(ntpServerName),0,true); //see "preNTP note" in debug.cpp
   sendNTPpacket(ntpServerIP);
   uint32_t beginWait = millis();
   while (millis() - beginWait < 2500) {
@@ -48,12 +48,12 @@ time_t getNtpTime(){
       secsSince1900 |= (unsigned long)packetBuffer[41] << 16;
       secsSince1900 |= (unsigned long)packetBuffer[42] << 8;
       secsSince1900 |= (unsigned long)packetBuffer[43];
-      debugLog("getNtpTime()","secsSince1900="+String(secsSince1900));
+      debugLog("getNtpTime()","secsSince1900="+String(secsSince1900),0,true); //see "preNTP note" in debug.cpp
       return secsSince1900 - 2208988800UL; //+ timeZone * SECS_PER_HOUR;
     }
   }
   displayText("NTP failed!                  ");
-  debugLog("getNtpTime()","no NTP response");
+  debugLog("getNtpTime()","no NTP response",0,true); //see "preNTP note" in debug.cpp
   ntpLimiter++; 
   if (ntpLimiter<=NTP_CONSEQ_REQ_LIMIT) {
     delay(ntpLimiter*500);
