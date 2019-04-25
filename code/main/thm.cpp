@@ -2,6 +2,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include "config.h"
+#include "debug.h"
 
 OneWire oneWire(THM_PIN);
 DallasTemperature sensors(&oneWire);
@@ -9,13 +10,12 @@ DallasTemperature sensors(&oneWire);
 void startThm(){
   sensors.begin();
   delay(100);
-  Serial.print("Found ");
-  Serial.print(sensors.getDeviceCount(), DEC);
-  Serial.println(" devices.");
+  debugLog("startThm()",String(sensors.getDeviceCount(), DEC)+" devices");
 }
 float getThm(){
   sensors.requestTemperatures();
   float tempC = sensors.getTempCByIndex(0);
+  debugLog("getThm()","THM= "+String(tempC), 2);
   if(tempC != DEVICE_DISCONNECTED_C){
     return tempC;
   } 

@@ -10,6 +10,7 @@
 #include "display.h"
 #include "ntp.h"
 #include "ir.h"
+#include "debug.h"
 
 int ntpLimiter=0;
 bool timeInitiated=false;
@@ -27,12 +28,9 @@ time_t getNtpTime(){
 
   while (Udp.parsePacket() > 0) ; // discard any previously received packets
   displayText("NTP requested         ");
-  Serial.println("Transmit NTP Request");
   // get a random server from the pool
   WiFi.hostByName(ntpServerName, ntpServerIP);
-  Serial.print(ntpServerName);
-  Serial.print(": ");
-  Serial.println(ntpServerIP);
+  debugLog("getNtpTime()",String(ntpServerName));
   sendNTPpacket(ntpServerIP);
   uint32_t beginWait = millis();
   while (millis() - beginWait < 2500) {
@@ -41,7 +39,6 @@ time_t getNtpTime(){
       displayText("NTP received    ");
       delay(500);
       displayText("                ");
-      Serial.println("Receive NTP Response");
       timeInitiated=true;
       ntpLimiter=0;
       Udp.read(packetBuffer, NTP_PACKET_SIZE);  // read packet into the buffer
@@ -51,11 +48,12 @@ time_t getNtpTime(){
       secsSince1900 |= (unsigned long)packetBuffer[41] << 16;
       secsSince1900 |= (unsigned long)packetBuffer[42] << 8;
       secsSince1900 |= (unsigned long)packetBuffer[43];
+      debugLog("getNtpTime()","secsSince1900="+String(secsSince1900));
       return secsSince1900 - 2208988800UL; //+ timeZone * SECS_PER_HOUR;
     }
   }
   displayText("NTP failed!                  ");
-  Serial.println("No NTP Response :-(");
+  debugLog("getNtpTime()","no NTP response");
   ntpLimiter++; 
   if (ntpLimiter<=NTP_CONSEQ_REQ_LIMIT) {
     delay(ntpLimiter*500);

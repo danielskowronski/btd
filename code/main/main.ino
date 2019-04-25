@@ -17,6 +17,8 @@
 #include "thm.h"
 #include "light.h"
 #include "data_post.h"
+#include "debug.h"
+
 
 void startWiFi(){
   displayText("WiFi init",true);

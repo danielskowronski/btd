@@ -9,9 +9,8 @@
 
 //NTP
 #define ntpServerName "0.pool.ntp.org"
-//#define timeZone 1
 #define UDP_LOCAL_PORT 9999
-#define NTP_CONSEQ_REQ_LIMIT 64
+#define NTP_CONSEQ_REQ_LIMIT 128
 static TimeChangeRule summerRule = {"CEST", Last, Sun, Mar, 2, +120};
 static TimeChangeRule winterRule = { "CET", Last, Sun, Oct, 3, +60};
 static Timezone userTZ(winterRule, summerRule);
@@ -24,7 +23,6 @@ static Timezone userTZ(winterRule, summerRule);
 //Other
 #define LIGHT_THRESHOLD 300
 #define TIME_BETWEEN_DATA_PUSHPULL 300
-
-//45s is time set in luftdaten sensor, setting 1m here
+#define DEBUG_LEVEL -1
 
 #endif
