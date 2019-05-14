@@ -7,4 +7,4 @@
 * Photoresistor
 * Resistors:
   * 4k7 x1
-  * 10k x1
+  * 220k x1 (for photoresistor)
