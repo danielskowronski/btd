@@ -12,6 +12,7 @@ void setScreenBright();
 void clearDisplay();
 void displayText(String txt, bool entireScreen=false);
 void displayTime();
+void setExtSensors(String* pm10, String* thm);
 void displayExtSensors();
 void displayIntSensors();
 

@@ -75,20 +75,39 @@ void displayTime(){
   display.setCursor(68,0); display.print(mm);
   display.fillRect(59,10,6,6,WHITE);
   display.fillRect(59,22,6,6,WHITE);
+
+  
+  String pm10, thm;
+  setExtSensors(&pm10, &thm);
+  
+  display.setCursor(0,48);
+  display.setTextSize(2);display.print(""+thm+char(0xf7)+"C");
+  display.setTextSize(1);display.print(" ");
+  display.setTextSize(2);display.print(pm10);
+
+  display.setTextSize(1);display.print(""+String(char(0xe5))+"g");
+  display.setCursor(110,56);
+  display.setTextSize(1);display.print("/m3");
+
   display.display();
 }
 
+void setExtSensors(String* pm10, String* thm){
+  *pm10 = String(int(extPM10));
+  if (int(extPM10)<100) *pm10=" "+*pm10;
+  if (int(extPM10)<10)  *pm10=" "+*pm10;
+  if (int(extPM10)>999) *pm10="!!!";
+  
+  *thm = String(int(extTemp));
+  if (int(extTemp)<10)  *thm=" "+*thm;
+  if (int(extTemp)>999) *thm="!!!";
+  if (int(extTemp)<100 && int(extTemp)>-10)  *thm=" "+*thm;
+}
+
 void displayExtSensors(){  
-  String pm10 = String(int(extPM10));
-  if (int(extPM10)<100) pm10=" "+pm10;
-  if (int(extPM10)<10)  pm10=" "+pm10;
-  if (int(extPM10)>999) pm10="!!!";
-  
-  String thm = String(int(extTemp));
-  if (int(extTemp)<10)  thm=" "+thm;
-  if (int(extTemp)>999) thm="!!!";
-  if (int(extTemp)<0 && int(extTemp)>-10)  thm=" "+thm;
-  
+  String pm10, thm;
+  setExtSensors(&pm10, &thm);
+
   int curPosX=0;
   display.setCursor(curPosX, 8); display.setTextSize(2);display.print("PM10"); curPosX+=2*6*4;
   display.setCursor(curPosX, 0); display.setTextSize(3);display.print(pm10);   curPosX+=3*6*3;
