@@ -1,58 +1,43 @@
-# luftdaten json data format
+# luftdaten 
 
-## data format expected
+## InfluxDB query
 ```
-{"esp8266id": "xxxxxxx", "software_version": "NRZ-2018-123B", "sensordatavalues":[{"value_type":"SDS_P1","value":"27.65"},{"value_type":"SDS_P2","value":"10.60"},{"value_type":"temperature","value":"43.30"},{"value_type":"humidity","value":"5.20"},{"value_type":"BME280_temperature","value":"33.87"},{"value_type":"BME280_humidity","value":"10.25"},{"value_type":"BME280_pressure","value":"99623.66"},{"value_type":"samples","value":"748814"},{"value_type":"min_micro","value":"78"},{"value_type":"max_micro","value":"25389"},{"value_type":"signal","value":"-68"}]}
+select  mean("SDS_P1"), mean("BME280_temperature") FROM "feinstaub" WHERE time >= now() - 5m
 ```
 
+## example data
 ```
 {
-  "esp8266id": "xxxxxxx",
-  "software_version": "NRZ-2018-123B",
-  "sensordatavalues": [
+  "results": [
     {
-      "value_type": "SDS_P1",
-      "value": "27.65"
-    },
-    {
-      "value_type": "SDS_P2",
-      "value": "10.60"
-    },
-    {
-      "value_type": "temperature",
-      "value": "43.30"
-    },
-    {
-      "value_type": "humidity",
-      "value": "5.20"
-    },
-    {
-      "value_type": "BME280_temperature",
-      "value": "33.87"
-    },
-    {
-      "value_type": "BME280_humidity",
-      "value": "10.25"
-    },
-    {
-      "value_type": "BME280_pressure",
-      "value": "99623.66"
-    },
-    {
-      "value_type": "samples",
-      "value": "748814"
-    },
-    {
-      "value_type": "min_micro",
-      "value": "78"
-    },
-    {
-      "value_type": "max_micro",
-      "value": "25389"
-    },
-    {
-      "value_type": "signal",
-      "value": "-68"
+      "statement_id": 0,
+      "series": [
+        {
+          "name": "feinstaub",
+          "columns": [
+            "time",
+            "mean",
+            "mean_1"
+          ],
+          "values": [
+            [
+              "2020-08-11T21:44:00Z",
+              3.1,
+              22.5
+            ],
+            [
+              "2020-08-11T21:46:00Z",
+              4.72,
+              22.49
+            ],
+            [
+              "2020-08-11T21:48:00Z",
+              3.55,
+              22.45
+            ]
+          ]
+        }
+      ]
     }
   ]
 }

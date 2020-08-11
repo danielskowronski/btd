@@ -10,7 +10,7 @@ Aim of the project is to create small device with display that is place on bedsi
 * local temperature reading and upload to InfluxDB (with auth())
 * presnetation of data from Lufdaten Air Monitor
   * [blog post about this data source](https://blog.dsinf.net/2019/01/budowa-stacji-pogody-z-czujnikiem-smogu-i-prezentacja-danych/)
-  * input data format defined in [luftdaten_json.md](luftdaten_json.md)
+  * input data from simple InfluxDB query - [luftdaten_json.md](luftdaten_json.md)
 * IR control of what's displayed on screen; scenes:
   * basic clock with big font
   * air pollution and temperature from Lufdaten
@@ -23,8 +23,9 @@ It's based on aruino style packed ESP8266, a microcontroller with WiFi stack and
 
 You may be interested in [Altium CircuitMaker project page](https://workspace.circuitmaker.com/Projects/Details/danielskowronski/btd).
 
-## Dev notes
-* ArduinoJson is used in version 6.8
+## Dev / build
+
+[arduino_ide.md](Arduino IDE config doc)
 
 ## Demo
 ![](hw/btd.png?raw=true)

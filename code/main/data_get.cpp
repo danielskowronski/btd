@@ -1,4 +1,4 @@
-#include <esp8266wifi.h>
+#include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
 #include "config.h"
@@ -7,11 +7,11 @@
 #include "debug.h"
 
 StaticJsonDocument<1024> doc;
-float extTemp, extHumidity, extPressure, extPM10, extPM25;
+float extTemp, extPM10;
 HTTPClient http;
 
 void getLuftdatenData(){
-  http.begin(luftdaten_json_path);
+  http.begin(get_influxdb_path);
   int httpCode = http.GET();
   if (httpCode!=200){
     debugLog("getLuftdatenData()","Luftdaten HTTP "+String(httpCode));
@@ -25,14 +25,11 @@ void getLuftdatenData(){
     return;
   }
 
-  //for some reason data is always ordered like that
-  extTemp=doc["sensordatavalues"][4]["value"];
-  extHumidity=doc["sensordatavalues"][5]["value"];
-  extPressure=doc["sensordatavalues"][6]["value"];
-  extPM10=doc["sensordatavalues"][0]["value"];
-  extPM25=doc["sensordatavalues"][1]["value"];
+  extTemp=doc["results"][0]["series"][0]["values"][0][2];
+  extPM10=doc["results"][0]["series"][0]["values"][0][1];
 
-  debugLog("getLuftdatenData()", "PM10="+String(extPM10)+", PM2.5="+String(extPM25)+", temp="+String(extTemp)+", humidity="+String(extHumidity)+", pressure="+String(extPressure));
+  debugLog("getLuftdatenData()", "PM10="+String(extPM10)+", temp="+String(extTemp));
+  debugLog("getLuftdatenData()", doc["results"][0]["series"][0]["values"][0]);
   
   http.end();
 }
